@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../models/article_model.dart';
+import 'db_service.dart';
 
 /// Service untuk mengakses Spaceflight News API v4.
 ///
@@ -34,7 +35,8 @@ class ApiService {
   /// [category] = 'news' | 'blogs' | 'report'
   static Future<List<ArticleModel>> fetchList(String category,
       {int limit = 10, int offset = 0}) async {
-    final endpoint = _endpointFor(category);
+    final normalized = category.toLowerCase();
+    final endpoint = _endpointFor(normalized);
     final url = Uri.parse('$_baseUrl/$endpoint/?limit=$limit&offset=$offset');
     final client = http.Client();
     try {
@@ -50,7 +52,9 @@ class ApiService {
           .timeout(const Duration(seconds: 12));
 
       if (response.statusCode == 200) {
-        return compute(_parseList, response.body);
+        final items = await compute(_parseList, response.body);
+        await DbService.instance.upsertArticles(normalized, items);
+        return items;
       } else {
         throw HttpException(
           'HTTP ${response.statusCode} ${response.reasonPhrase ?? ''}',
@@ -58,8 +62,14 @@ class ApiService {
         );
       }
     } on TimeoutException catch (e) {
+      final cached =
+          await DbService.instance.getArticlesByCategory(normalized);
+      if (cached.isNotEmpty) return cached;
       throw TimeoutException('Timeout saat memuat data $category', e.duration);
     } on SocketException catch (e) {
+      final cached =
+          await DbService.instance.getArticlesByCategory(normalized);
+      if (cached.isNotEmpty) return cached;
       throw SocketException('Koneksi bermasalah: ${e.message}');
     } finally {
       client.close();
@@ -68,7 +78,8 @@ class ApiService {
 
   /// Mengambil detail satu item berdasarkan [id] dan [category].
   static Future<ArticleModel> fetchDetail(String category, int id) async {
-    final endpoint = _endpointFor(category);
+    final normalized = category.toLowerCase();
+    final endpoint = _endpointFor(normalized);
     final url = Uri.parse('$_baseUrl/$endpoint/$id/');
     final client = http.Client();
     try {
@@ -84,7 +95,9 @@ class ApiService {
           .timeout(const Duration(seconds: 12));
 
       if (response.statusCode == 200) {
-        return compute(_parseDetail, response.body);
+        final item = await compute(_parseDetail, response.body);
+        await DbService.instance.upsertArticles(normalized, [item]);
+        return item;
       } else {
         throw HttpException(
           'HTTP ${response.statusCode} ${response.reasonPhrase ?? ''}',
@@ -92,8 +105,14 @@ class ApiService {
         );
       }
     } on TimeoutException catch (e) {
+      final cached =
+          await DbService.instance.getArticleById(normalized, id);
+      if (cached != null) return cached;
       throw TimeoutException('Timeout saat memuat detail $category', e.duration);
     } on SocketException catch (e) {
+      final cached =
+          await DbService.instance.getArticleById(normalized, id);
+      if (cached != null) return cached;
       throw SocketException('Koneksi bermasalah: ${e.message}');
     } finally {
       client.close();

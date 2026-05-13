@@ -40,6 +40,34 @@ class ArticleModel {
           [],
     );
   }
+
+  Map<String, dynamic> toMap(String category) {
+    return {
+      'id': id,
+      'category': category,
+      'title': title,
+      'url': url,
+      'image_url': imageUrl,
+      'news_site': newsSite,
+      'summary': summary,
+      'published_at': publishedAt,
+      'updated_at': updatedAt,
+    };
+  }
+
+  factory ArticleModel.fromMap(Map<String, dynamic> map) {
+    return ArticleModel(
+      id: map['id'] as int? ?? 0,
+      title: map['title'] as String? ?? '',
+      url: map['url'] as String? ?? '',
+      imageUrl: map['image_url'] as String? ?? '',
+      newsSite: map['news_site'] as String? ?? '',
+      summary: map['summary'] as String? ?? '',
+      publishedAt: map['published_at'] as String? ?? '',
+      updatedAt: map['updated_at'] as String? ?? '',
+      authors: const [],
+    );
+  }
 }
 
 class Author {
