@@ -1,6 +1,3 @@
-/// Model untuk data Article, Blog, dan Report dari Spaceflight News API v4.
-/// Ketiga endpoint memiliki struktur JSON yang hampir identik,
-/// sehingga satu model bisa dipakai untuk semuanya.
 class ArticleModel {
   final int id;
   final String title;

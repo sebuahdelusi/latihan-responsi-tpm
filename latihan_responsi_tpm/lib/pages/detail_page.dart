@@ -5,9 +5,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get.dart';
 import '../controllers/detail_controller.dart';
 
-/// Halaman Ketiga — Detail News / Blog / Report.
-/// Sesuai screenshot: gambar besar di atas, judul + sumber + tanggal + summary,
-/// FAB extended "See more.." yang membuka URL di browser eksternal.
 class DetailPage extends StatefulWidget {
   final int itemId;
   final String category;
@@ -92,14 +89,12 @@ class _DetailPageState extends State<DetailPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(title: Text(_appBarTitle)),
       body: Obx(() {
-        // ── Loading ─────────────────────────────────────
         if (_controller.isLoading.value) {
           return const Center(
             child: CircularProgressIndicator(color: Color(0xFF6C63FF)),
           );
         }
 
-        // ── Error ────────────────────────────────────────
         if (_controller.errorMessage.value.isNotEmpty) {
           return Center(
             child: Padding(
@@ -131,14 +126,12 @@ class _DetailPageState extends State<DetailPage> {
           );
         }
 
-        // ── Detail content ───────────────────────────────
         return Stack(
           children: [
             SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // ── Gambar header ──────────────────────
                   CachedNetworkImage(
                     imageUrl: item.imageUrl,
                     width: double.infinity,
@@ -160,13 +153,11 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                   ),
 
-                  // ── Konten teks ────────────────────────
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 100),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Judul
                         Text(
                           item.title,
                           style: const TextStyle(
@@ -178,7 +169,6 @@ class _DetailPageState extends State<DetailPage> {
                         ),
                         const SizedBox(height: 10),
 
-                        // Sumber
                         Text(
                           item.newsSite,
                           style: TextStyle(
@@ -189,7 +179,6 @@ class _DetailPageState extends State<DetailPage> {
                         ),
                         const SizedBox(height: 4),
 
-                        // Tanggal
                         Text(
                           _formatDate(item.publishedAt),
                           style: TextStyle(
@@ -203,7 +192,6 @@ class _DetailPageState extends State<DetailPage> {
                           child: Divider(height: 1, color: Color(0xFFEEEEEE)),
                         ),
 
-                        // Summary / isi
                         Text(
                           item.summary,
                           style: const TextStyle(
@@ -219,8 +207,6 @@ class _DetailPageState extends State<DetailPage> {
               ),
             ),
 
-            // ── FAB "See more.." ─────────────────────────
-            // Posisi fixed di bawah layar, sesuai screenshot soal
             Positioned(
               bottom: 24,
               right: 20,

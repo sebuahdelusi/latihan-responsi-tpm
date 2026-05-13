@@ -77,7 +77,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 const EdgeInsets.symmetric(horizontal: 28, vertical: 24),
             child: Column(
               children: [
-                // ── Header card ──────────────────────────────
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(
@@ -123,7 +122,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 28),
 
-                // ── Form card ────────────────────────────────
                 Container(
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
@@ -152,7 +150,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         const SizedBox(height: 20),
 
-                        // Username
                         TextFormField(
                           controller: _usernameController,
                           decoration: const InputDecoration(
@@ -172,7 +169,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         const SizedBox(height: 16),
 
-                        // Password
                         TextFormField(
                           controller: _passwordController,
                           obscureText: _obscurePassword,
@@ -203,7 +199,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         const SizedBox(height: 16),
 
-                        // Konfirmasi Password
                         TextFormField(
                           controller: _confirmPasswordController,
                           obscureText: _obscureConfirm,
@@ -231,7 +226,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         const SizedBox(height: 24),
 
-                        // Register button
                         SizedBox(
                           width: double.infinity,
                           height: 50,
@@ -257,7 +251,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         const SizedBox(height: 16),
 
-                        // Link login
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

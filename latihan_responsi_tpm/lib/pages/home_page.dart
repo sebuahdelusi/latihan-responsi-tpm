@@ -26,7 +26,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // Warna background card sesuai screenshot (ungu muda)
   static const _cardBg = Color(0xFFEDE7FF);
 
   final List<Map<String, dynamic>> _menuItems = [
@@ -58,7 +57,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
-        // "Hai, Username!" sesuai requirement
         title: Obx(() => Text('Hai, ${_controller.username.value}!')),
         automaticallyImplyLeading: false,
         actions: [
@@ -110,7 +108,6 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Ilustrasi / icon
               Container(
                 width: 60,
                 height: 60,
@@ -128,7 +125,6 @@ class _HomePageState extends State<HomePage> {
                 child: Icon(icon, size: 30, color: const Color(0xFF6C63FF)),
               ),
               const SizedBox(width: 16),
-              // Teks
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

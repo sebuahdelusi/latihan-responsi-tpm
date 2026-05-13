@@ -5,9 +5,6 @@ import 'package:get/get.dart';
 import '../controllers/list_controller.dart';
 import '../models/article_model.dart';
 
-/// Halaman Kedua — List News / Blog / Report.
-/// Sesuai screenshot: dark AppBar, card putih dengan gambar full-width di atas,
-/// judul bold, news_site italic, tanggal + arrow di bawah.
 class ListPage extends StatefulWidget {
   final String category;
   final String username;
@@ -73,14 +70,12 @@ class _ListPageState extends State<ListPage> {
       backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(title: Text(_appBarTitle)),
       body: Obx(() {
-        // ── Loading ─────────────────────────────────────
         if (_controller.isLoading.value) {
           return const Center(
             child: CircularProgressIndicator(color: Color(0xFF6C63FF)),
           );
         }
 
-        // ── Error ────────────────────────────────────────
         if (_controller.errorMessage.value.isNotEmpty) {
           return Center(
             child: Padding(
@@ -113,7 +108,6 @@ class _ListPageState extends State<ListPage> {
           );
         }
 
-        // ── Empty ────────────────────────────────────────
         if (_controller.items.isEmpty) {
           return const Center(
             child: Text('Tidak ada data tersedia',
@@ -121,7 +115,6 @@ class _ListPageState extends State<ListPage> {
           );
         }
 
-        // ── List ─────────────────────────────────────────
         return ListView.separated(
           padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
           itemCount: _controller.items.length,
@@ -148,7 +141,6 @@ class _ListPageState extends State<ListPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── Gambar full-width ──────────────────────────
             CachedNetworkImage(
               imageUrl: item.imageUrl,
               height: 190,
@@ -170,13 +162,11 @@ class _ListPageState extends State<ListPage> {
               ),
             ),
 
-            // ── Konten teks ────────────────────────────────
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Judul
                   Text(
                     item.title,
                     style: const TextStyle(
@@ -190,7 +180,6 @@ class _ListPageState extends State<ListPage> {
                   ),
                   const SizedBox(height: 6),
 
-                  // Sumber (news_site)
                   Text(
                     item.newsSite,
                     style: TextStyle(
@@ -201,7 +190,6 @@ class _ListPageState extends State<ListPage> {
                   ),
                   const SizedBox(height: 10),
 
-                  // Tanggal + arrow
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

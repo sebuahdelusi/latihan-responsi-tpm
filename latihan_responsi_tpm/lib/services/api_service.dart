@@ -6,17 +6,9 @@ import 'package:http/http.dart' as http;
 import '../models/article_model.dart';
 import 'db_service.dart';
 
-/// Service untuk mengakses Spaceflight News API v4.
-///
-/// Endpoints:
-///   - Articles (News): /v4/articles/
-///   - Blogs:           /v4/blogs/
-///   - Reports:         /v4/reports/
-///   - Detail:          /v4/{menu}/{id}/
 class ApiService {
   static const String _baseUrl = 'https://api.spaceflightnewsapi.net/v4';
 
-  /// Mengembalikan endpoint path berdasarkan kategori.
   static String _endpointFor(String category) {
     switch (category.toLowerCase()) {
       case 'news':
@@ -31,8 +23,6 @@ class ApiService {
     }
   }
 
-  /// Mengambil list data (articles / blogs / reports).
-  /// [category] = 'news' | 'blogs' | 'report'
   static Future<List<ArticleModel>> fetchList(String category,
       {int limit = 10, int offset = 0}) async {
     final normalized = category.toLowerCase();
@@ -76,7 +66,6 @@ class ApiService {
     }
   }
 
-  /// Mengambil detail satu item berdasarkan [id] dan [category].
   static Future<ArticleModel> fetchDetail(String category, int id) async {
     final normalized = category.toLowerCase();
     final endpoint = _endpointFor(normalized);

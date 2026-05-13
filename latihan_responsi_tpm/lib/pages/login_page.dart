@@ -73,7 +73,6 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 24),
             child: Column(
               children: [
-                // ── Header card ──────────────────────────────
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(
@@ -119,7 +118,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 28),
 
-                // ── Form card ────────────────────────────────
                 Container(
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
@@ -148,7 +146,6 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         const SizedBox(height: 20),
 
-                        // Username
                         TextFormField(
                           controller: _usernameController,
                           decoration: const InputDecoration(
@@ -162,7 +159,6 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         const SizedBox(height: 16),
 
-                        // Password
                         TextFormField(
                           controller: _passwordController,
                           obscureText: _obscurePassword,
@@ -187,7 +183,6 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         const SizedBox(height: 24),
 
-                        // Login button
                         SizedBox(
                           width: double.infinity,
                           height: 50,
@@ -213,7 +208,6 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         const SizedBox(height: 16),
 
-                        // Link register
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
